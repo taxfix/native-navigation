@@ -170,7 +170,7 @@ public class ReactNativeTabActivity extends ReactAwareActivity
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    reactInstanceManager.onActivityResult(this, requestCode, requestCode, data);
+    reactInstanceManager.onActivityResult(this, requestCode, resultCode, data);
   }
 
   @Override
