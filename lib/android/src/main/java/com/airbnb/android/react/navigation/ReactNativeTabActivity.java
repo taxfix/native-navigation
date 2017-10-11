@@ -165,6 +165,11 @@ public class ReactNativeTabActivity extends ReactAwareActivity
   }
 
   @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    reactInstanceManager.onActivityResult(this, requestCode, requestCode, data);
+  }
+
+  @Override
   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     Log.d(TAG, "onNavigationItemSelected");
     TabView tab = tabViews.get(item.getItemId());
