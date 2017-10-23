@@ -3,16 +3,16 @@ use_frameworks!
 project 'native-navigation.xcodeproj'
 
 target 'native-navigation' do
-  pod 'Yoga', :path => '../../node_modules/react-native/ReactCommon/yoga/Yoga.podspec'
+  pod 'yoga', :path => '../../node_modules/react-native/ReactCommon/yoga/yoga.podspec'
   pod 'native-navigation', :path => '../../'
   pod 'React', :path => '../../node_modules/react-native', :subspecs => [
+    'BatchedBridge',
     'Core',
-    'RCTText',
-    'RCTNetwork',
-    'RCTWebSocket', # needed for debugging
+    'DevSupport',
     'RCTAnimation',
     'RCTImage',
-    'RCTNetwork'
-    # Add any other subspecs you want to use in your project
+    'RCTNetwork',
+    'RCTText',
+    'RCTWebSocket',
   ]
 end

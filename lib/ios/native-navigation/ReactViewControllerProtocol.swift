@@ -117,7 +117,7 @@ extension UIViewController {
       guard let rvc = rvc else { return }
       guard let viewControllerToPresent = viewControllerToPresent else { return }
 
-      let identifier = rvc.nativeNavigationInstanceId
+      _ = rvc.nativeNavigationInstanceId
       rvc.onNavigationBarTypeUpdated = nil
       rvc.isPendingNavigationTransition = false
       rvc.isCurrentlyTransitioning = true

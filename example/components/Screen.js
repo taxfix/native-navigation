@@ -8,11 +8,12 @@ import Navigator from '../../index';
 import theme from '../util/theme';
 
 const propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
 const defaultProps = {
+  title: undefined,
 };
 
 const contextTypes = {
