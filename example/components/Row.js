@@ -12,11 +12,13 @@ import theme from '../util/theme';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
+  subtitle: PropTypes.string,
+  onPress: PropTypes.func,
 };
 
 const defaultProps = {
+  onPress: undefined,
+  subtitle: undefined,
 };
 
 export default class Row extends React.Component {

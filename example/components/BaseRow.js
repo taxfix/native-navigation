@@ -10,10 +10,11 @@ import theme from '../util/theme';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
 };
 
 const defaultProps = {
+  onPress: undefined,
 };
 
 export default class BaseRow extends React.Component {
