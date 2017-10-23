@@ -1,26 +1,27 @@
 PODS:
-  - native-navigation (0.1.0):
+  - native-navigation (0.2.1):
     - React
-  - React (0.42.3):
-    - React/Core (= 0.42.3)
-  - React/Core (0.42.3):
-    - React/cxxreact
-    - Yoga (= 0.42.3.React)
-  - React/cxxreact (0.42.3):
-    - React/jschelpers
-  - React/jschelpers (0.42.3)
-  - React/RCTAnimation (0.42.3):
+  - React (0.49.3):
+    - React/Core (= 0.49.3)
+  - React/Core (0.49.3):
+    - yoga (= 0.49.3.React)
+  - React/fishhook (0.49.3)
+  - React/RCTAnimation (0.49.3):
     - React/Core
-  - React/RCTImage (0.42.3):
+  - React/RCTBlob (0.49.3):
+    - React/Core
+  - React/RCTImage (0.49.3):
     - React/Core
     - React/RCTNetwork
-  - React/RCTNetwork (0.42.3):
+  - React/RCTNetwork (0.49.3):
     - React/Core
-  - React/RCTText (0.42.3):
+  - React/RCTText (0.49.3):
     - React/Core
-  - React/RCTWebSocket (0.42.3):
+  - React/RCTWebSocket (0.49.3):
     - React/Core
-  - Yoga (0.42.3.React)
+    - React/fishhook
+    - React/RCTBlob
+  - yoga (0.49.3.React)
 
 DEPENDENCIES:
   - native-navigation (from `../../`)
@@ -30,21 +31,21 @@ DEPENDENCIES:
   - React/RCTNetwork (from `../../node_modules/react-native`)
   - React/RCTText (from `../../node_modules/react-native`)
   - React/RCTWebSocket (from `../../node_modules/react-native`)
-  - Yoga (from `../../node_modules/react-native/ReactCommon/yoga/Yoga.podspec`)
+  - yoga (from `../../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 EXTERNAL SOURCES:
   native-navigation:
     :path: "../../"
   React:
     :path: "../../node_modules/react-native"
-  Yoga:
-    :path: "../../node_modules/react-native/ReactCommon/yoga/Yoga.podspec"
+  yoga:
+    :path: "../../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
 SPEC CHECKSUMS:
-  native-navigation: 23b0ef13de8bd9aaa4dbaa115e9b7055e6844987
-  React: 35e039680feacd0563677d49ba410112d2748559
-  Yoga: 86ce777665c8259b94ef8dbea76b84634237f4ea
+  native-navigation: bfb4dd993e94160c9d71804332c39f7e56f0283b
+  React: 5751f5630c58f7ef31a00cf03044878295bceff0
+  yoga: 6e56575501ecea04196f9c9f08b90cf97cd5da24
 
-PODFILE CHECKSUM: 62780c26b71f717952c8247c70052484dc91c6b3
+PODFILE CHECKSUM: 0c208c611c00d7bc3cd3e67be02c36bab3586f66
 
 COCOAPODS: 1.2.0
