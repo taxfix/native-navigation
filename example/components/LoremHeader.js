@@ -10,7 +10,7 @@ import theme from '../util/theme';
 import titleForId from '../util/titleForId';
 
 const propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   ...Text.propTypes,
 };
 

@@ -9,8 +9,8 @@ import PlatformTouchableHighlight from './PlatformTouchableHighlight';
 import theme from '../util/theme';
 
 const propTypes = {
-  children: PropTypes.node,
-  onPress: PropTypes.func,
+  children: PropTypes.node.isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

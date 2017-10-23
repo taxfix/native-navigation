@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabBar, Tab } from 'native-navigation';
+import { TabBar, Tab } from '../../index';
 
 const propTypes = {};
 const defaultProps = {};
@@ -11,22 +11,22 @@ export default class TabScreen extends React.Component {
         elevation={20}
       >
         <Tab
-          route={'ScreenOne'}
+          route="ScreenOne"
           title="Home"
           image={require('../icons/home.png')}
         />
         <Tab
-          route={'ScreenOne'}
+          route="ScreenOne"
           title="Chat"
           image={require('../icons/chat.png')}
         />
         <Tab
-          route={'ScreenOne'}
+          route="ScreenOne"
           title="Data"
           image={require('../icons/backup.png')}
         />
         <Tab
-          route={'ScreenOne'}
+          route="ScreenOne"
           title="Settings"
           image={require('../icons/settings.png')}
         />

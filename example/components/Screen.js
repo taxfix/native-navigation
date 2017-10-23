@@ -4,13 +4,12 @@ import {
   ScrollView,
 } from 'react-native';
 
-import Navigator from 'native-navigation';
+import Navigator from '../../index';
 import theme from '../util/theme';
 
 const propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node,
-  onPress: PropTypes.func,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 const defaultProps = {
@@ -34,7 +33,7 @@ export default class Screen extends React.Component {
         elevation={4}
         onBackPress={() => console.log('onBackPress')}
         onLeftPress={() => console.log('onLeftPress')}
-        onRightPress={(x) => console.log('onRightPress', x)}
+        onRightPress={x => console.log('onRightPress', x)}
         onAppear={() => console.log('onAppear', this.context.nativeNavigationInstanceId)}
         onDisappear={() => console.log('onDisappear', this.context.nativeNavigationInstanceId)}
       >

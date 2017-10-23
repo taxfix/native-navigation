@@ -12,8 +12,8 @@ import theme from '../util/theme';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
-  onPress: PropTypes.func,
+  subtitle: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
