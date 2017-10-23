@@ -102,7 +102,6 @@ class ReactNavigation: NSObject {
   func present(_ screenName: String, withProps props: [String: AnyObject], options: [String: AnyObject], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
     print("present \(screenName)")
     DispatchQueue.main.async {
-      guard let nav = self.coordinator.topNavigationController() else { return }
       guard let current = self.coordinator.topViewController() as? ReactViewController else {
         print("Called present() when topViewController() isn't a ReactViewController")
         return
@@ -125,7 +124,7 @@ class ReactNavigation: NSObject {
       }
 
       self.coordinator.registerFlow(presented, resolve: resolve, reject: reject)
-      nav.presentReactViewController(presented, animated: animated, completion: nil, presentationStyle: self.modalPresentationStyle(from: options), makeTransition: makeTransition)
+      current.presentReactViewController(presented, animated: animated, completion: nil, presentationStyle: self.modalPresentationStyle(from: options), makeTransition: makeTransition)
     }
   }
   
