@@ -5,7 +5,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import murmurHash from 'murmur2js';
-import { SharedElement } from 'native-navigation';
+import { SharedElement } from '../../index';
 
 import theme from '../util/theme';
 
@@ -19,7 +19,7 @@ const propTypes = {
 
 const defaultProps = {
   urlWidth: 0,
-  urlheight: 0,
+  urlHeight: 0,
   id: null,
 };
 
@@ -35,7 +35,13 @@ const getImage = (w, h, id) => `https://placem.at/places?w=${w}&h=${h}&random=${
 
 export default class LoremImage extends React.PureComponent {
   render() {
-    const { id, width, height, urlWidth, urlHeight } = this.props;
+    const {
+      id,
+      width,
+      height,
+      urlWidth,
+      urlHeight,
+    } = this.props;
     const w = Math.round(urlWidth || width);
     const h = Math.round(urlHeight || height);
     const { nativeNavigationInstanceId } = this.context;

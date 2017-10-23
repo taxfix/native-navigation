@@ -16,7 +16,7 @@ const { width } = Dimensions.get('window');
 
 const propTypes = {
   id: PropTypes.number.isRequired,
-  onPress: PropTypes.func,
+  onPress: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

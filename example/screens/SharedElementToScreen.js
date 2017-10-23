@@ -42,7 +42,7 @@ export default class SharedElementToScreen extends Component {
         </View>
         {Array.from({ length: 8 }).map((_, i) => (
           <View
-            key={id + i}
+            key={id + i} // eslint-disable-line react/no-array-index-key
             style={{
               overflow: 'hidden',
               paddingHorizontal: theme.size.horizontalPadding,

@@ -7,7 +7,7 @@ import {
 import murmurHash from 'murmur2js';
 
 const propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   ...Text.propTypes,
 };
 

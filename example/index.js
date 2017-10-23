@@ -1,16 +1,14 @@
-import Navigator from 'native-navigation';
+import Navigator from '../index';
 
 Navigator.registerScreen(
   'SharedElementToScreen',
-  () => require('./screens/SharedElementToScreen')
+  () => require('./screens/SharedElementToScreen'),
 );
 Navigator.registerScreen(
   'SharedElementFromScreen',
-  () => require('./screens/SharedElementFromScreen')
+  () => require('./screens/SharedElementFromScreen'),
 );
-Navigator.registerScreen('NavigationBar', () =>
-  require('./screens/NavigationBar')
-);
+Navigator.registerScreen('NavigationBar', () => require('./screens/NavigationBar'));
 Navigator.registerScreen(
   'ScreenOne',
   () => require('./screens/NavigationExampleScreen'),
@@ -18,12 +16,12 @@ Navigator.registerScreen(
     initialConfig: {
       // title: 'FooBar',
     },
-  }
+  },
 );
 Navigator.registerScreen(
   'TabScreen',
   () => require('./screens/TabScreen'),
   {
     mode: 'tabs',
-  }
+  },
 );
