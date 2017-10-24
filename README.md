@@ -1,5 +1,7 @@
 # Native Navigation
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/taxfix/native-navigation.svg)](https://greenkeeper.io/)
+
 [![Join the chat at https://gitter.im/airbnb/native-navigation](https://badges.gitter.im/airbnb/native-navigation.svg)](https://gitter.im/airbnb/native-navigation?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![npm Version](https://img.shields.io/npm/v/native-navigation.svg)](https://www.npmjs.com/package/native-navigation) 
