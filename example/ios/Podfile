@@ -5,16 +5,25 @@ platform :ios, '9.0'
 project 'native-navigation.xcodeproj'
 
 target 'native-navigation' do
-  pod 'yoga', :path => '../../node_modules/react-native/ReactCommon/yoga/yoga.podspec'
-  pod 'native-navigation', :path => '../../'
-  pod 'React', :path => '../../node_modules/react-native', :subspecs => [
-    'BatchedBridge',
-    'Core',
-    'DevSupport',
-    'RCTAnimation',
-    'RCTImage',
-    'RCTNetwork',
-    'RCTText',
-    'RCTWebSocket',
-  ]
+  ROOT = '../..'.freeze
+  REACT_NATIVE = File.join(ROOT, 'node_modules/react-native').freeze
+  THIRD_PARTY = File.join(REACT_NATIVE, 'third-party-podspecs').freeze
+
+  pod 'native-navigation', :path => ROOT
+  pod 'yoga', :path => File.join(REACT_NATIVE, 'ReactCommon/yoga').freeze
+
+  pod 'DoubleConversion', :podspec => File.join(THIRD_PARTY, 'DoubleConversion.podspec').freeze
+  pod 'Folly', :podspec => File.join(THIRD_PARTY, 'Folly.podspec').freeze
+  pod 'GLog', :podspec => File.join(THIRD_PARTY, 'GLog.podspec').freeze
+
+  pod 'React', :path => REACT_NATIVE, :subspecs => %w(
+    Core
+    CxxBridge
+    DevSupport
+    RCTAnimation
+    RCTImage
+    RCTNetwork
+    RCTText
+    RCTWebSocket
+  )
 end
