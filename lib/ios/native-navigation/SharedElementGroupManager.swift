@@ -14,12 +14,12 @@ final class SharedElementGroup: RCTView {
 
   // MARK: Internal
 
-  func setIdentifier(_ identifier: String!) {
+  @objc func setIdentifier(_ identifier: String!) {
     self.identifier = identifier
     addToViewControllerIfPossible()
   }
 
-  func setNativeNavigationInstanceId(_ nativeNavigationInstanceId: String!) {
+  @objc func setNativeNavigationInstanceId(_ nativeNavigationInstanceId: String!) {
     self.nativeNavigationInstanceId = nativeNavigationInstanceId
     addToViewControllerIfPossible()
   }
@@ -42,6 +42,10 @@ private let VERSION: Int = 1
 
 @objc(SharedElementGroupManager)
 final class SharedElementGroupManager: RCTViewManager {
+  override static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
+
   override func view() -> UIView! {
     return SharedElementGroup()
   }

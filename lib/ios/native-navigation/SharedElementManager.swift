@@ -15,11 +15,11 @@ final class SharedElement: RCTView {
 
   // MARK: Internal
 
-  func setIdentifier(_ identifier: String!) {
+  @objc func setIdentifier(_ identifier: String!) {
     self.identifier = identifier
   }
 
-  func setNativeNavigationInstanceId(_ nativeNavigationInstanceId: String!) {
+  @objc func setNativeNavigationInstanceId(_ nativeNavigationInstanceId: String!) {
     self.nativeNavigationInstanceId = nativeNavigationInstanceId
   }
 
@@ -49,6 +49,10 @@ private let VERSION: Int = 1
 
 @objc(SharedElementManager)
 final class SharedElementManager: RCTViewManager {
+  override static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
+
   override func view() -> UIView! {
     return SharedElement()
   }

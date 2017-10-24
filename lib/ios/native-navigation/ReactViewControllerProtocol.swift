@@ -51,7 +51,7 @@ extension ReactTabBarController: InternalReactViewControllerProtocol {
 // we will wait a maximum of 200ms for the RN view to tell us what the navigation bar should look like.
 // should normally happen much quicker than this... This is just to make sure it transitions in a reasonable
 // time frame even if the react thread takes an extra long time.
-private let DELAY: Int64 = Int64(1.2 * Double(NSEC_PER_SEC))
+public let NATIVE_NAVIGATION_DELAY: Int64 = Int64(1.2 * Double(NSEC_PER_SEC))
 private var IN_PROGRESS: Bool = false
 
 
@@ -151,7 +151,7 @@ extension UIViewController {
     rvc.startedWaitingForRealNavigation()
 
     // we delay pushing the view controller just a little bit (50ms) so that the react view can render
-    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(DELAY) / Double(NSEC_PER_SEC)) {
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(NATIVE_NAVIGATION_DELAY) / Double(NSEC_PER_SEC)) {
       if (rvc.isPendingNavigationTransition) {
         print("Present Fallback Timer Called!")
         rvc.onNavigationBarTypeUpdated?()
@@ -165,13 +165,13 @@ extension UIViewController {
 extension UINavigationController {
 
   public func pushReactViewController(_ viewController: ReactViewControllerProtocol, animated: Bool) {
-    pushReactViewController(viewController, animated: animated, delay: DELAY, makeTransition: nil)
+    pushReactViewController(viewController, animated: animated, delay: NATIVE_NAVIGATION_DELAY, makeTransition: nil)
   }
 
   public func pushReactViewController(
     _ viewController: ReactViewControllerProtocol,
     animated: Bool,
-    delay: Int64 = DELAY,
+    delay: Int64 = NATIVE_NAVIGATION_DELAY,
     makeTransition: (() -> ReactSharedElementTransition)?
   ) {
     guard let irvc = viewController as? InternalReactViewControllerProtocol else {
@@ -187,7 +187,7 @@ extension UINavigationController {
   func internalPushReactViewController(
     _ viewController: InternalReactViewControllerProtocol,
     animated: Bool,
-    delay: Int64 = DELAY,
+    delay: Int64 = NATIVE_NAVIGATION_DELAY,
     makeTransition: (() -> ReactSharedElementTransition)?) {
 
     // we debounce this call globally
