@@ -23,11 +23,11 @@ final class TabView: UIView {
 
   // MARK: Internal
 
-  func setRoute(_ route: String!) {
+  @objc func setRoute(_ route: String!) {
     self.route = route
   }
 
-  func setConfig(_ config: [String: AnyObject]) {
+  @objc func setConfig(_ config: [String: AnyObject]) {
     self.prevConfig = self.renderedConfig
     self.renderedConfig = config
     implementation.reconcileTabConfig(
@@ -37,7 +37,7 @@ final class TabView: UIView {
     );
   }
 
-  func setProps(_ props: [String: AnyObject]) {
+  @objc func setProps(_ props: [String: AnyObject]) {
     self.props = props
   }
 

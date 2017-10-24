@@ -12,7 +12,7 @@ final class TabBar: RCTView {
 
   // MARK: Internal
 
-  func setConfig(_ config: [String: AnyObject]) {
+  @objc func setConfig(_ config: [String: AnyObject]) {
     self.prevConfig = self.renderedConfig
     self.renderedConfig = config
     refresh()

@@ -14,12 +14,12 @@ final class SharedElementGroup: RCTView {
 
   // MARK: Internal
 
-  func setIdentifier(_ identifier: String!) {
+  @objc func setIdentifier(_ identifier: String!) {
     self.identifier = identifier
     addToViewControllerIfPossible()
   }
 
-  func setNativeNavigationInstanceId(_ nativeNavigationInstanceId: String!) {
+  @objc func setNativeNavigationInstanceId(_ nativeNavigationInstanceId: String!) {
     self.nativeNavigationInstanceId = nativeNavigationInstanceId
     addToViewControllerIfPossible()
   }
