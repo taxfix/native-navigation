@@ -76,6 +76,10 @@ private let VERSION: Int = 1
 
 @objc(TabViewManager)
 final class TabViewManager: RCTViewManager {
+  override static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
+
   override func view() -> UIView! {
     return TabView()
 //    return TabView(implementation: ReactNavigationCoordinator.sharedInstance.navigation)

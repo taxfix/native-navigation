@@ -19,6 +19,10 @@ class ReactNavigation: NSObject {
     coordinator = ReactNavigationCoordinator.sharedInstance
   }
 
+  @objc static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
+
   func constantsToExport() -> [String: Any] {
     return [
       "VERSION": VERSION

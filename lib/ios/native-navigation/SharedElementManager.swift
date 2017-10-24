@@ -49,6 +49,10 @@ private let VERSION: Int = 1
 
 @objc(SharedElementManager)
 final class SharedElementManager: RCTViewManager {
+  override static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
+
   override func view() -> UIView! {
     return SharedElement()
   }
