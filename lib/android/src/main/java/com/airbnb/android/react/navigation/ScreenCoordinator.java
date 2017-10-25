@@ -36,6 +36,7 @@ public class ScreenCoordinator {
   private static final String TAG = ScreenCoordinator.class.getSimpleName();
   static final String EXTRA_PAYLOAD = "payload";
   private static final String TRANSITION_GROUP = "transitionGroup";
+  private static final String PREFERS_BOTTOM_BAR_HIDDEN = "prefersBottomBarHidden";
 
   enum PresentAnimation {
     Modal(R.anim.slide_up, R.anim.delay, R.anim.delay, R.anim.slide_down),
@@ -103,11 +104,17 @@ public class ScreenCoordinator {
     }
 
     if (ViewUtils.isAtLeastLollipop() && options != null && options.containsKey(TRANSITION_GROUP)) {
-        setupFragmentForSharedElement(currentFragment,  fragment, ft, options);
+      setupFragmentForSharedElement(currentFragment, fragment, ft, options);
     } else {
       PresentAnimation anim = PresentAnimation.Push;
       ft.setCustomAnimations(anim.enter, anim.exit, anim.popEnter, anim.popExit);
     }
+
+    if (fragment instanceof ReactNativeFragment) {
+      ReactNativeFragment rnf = (ReactNativeFragment) fragment;
+      rnf.setPrefersBottomBarHidden(options.getBoolean(PREFERS_BOTTOM_BAR_HIDDEN, false));
+    }
+
     BackStack bsi = getCurrentBackStack();
     ft
             .detach(currentFragment)

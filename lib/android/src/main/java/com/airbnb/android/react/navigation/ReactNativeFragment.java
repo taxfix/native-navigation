@@ -67,6 +67,7 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
   private boolean isSharedElementTransition;
   private boolean isWaitingForRenderToFinish = false;
   private float barHeight;
+  private boolean prefersBottomBarHidden = false;
   private ReadableMap initialConfig = ConversionUtil.EMPTY_MAP;
   private ReadableMap previousConfig = ConversionUtil.EMPTY_MAP;
   private ReadableMap renderedConfig = ConversionUtil.EMPTY_MAP;
@@ -304,6 +305,12 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
   public void onResume() {
     super.onResume();
     Log.d(TAG, "onResume");
+
+    if (getActivity() instanceof ReactNativeTabActivity) {
+      ReactNativeTabActivity rnta = (ReactNativeTabActivity)getActivity();
+      rnta.toggleBottomNavigationHidden(prefersBottomBarHidden);
+    }
+
     updateBarHeightIfNeeded();
     emitEvent(ON_APPEAR, null);
   }
@@ -472,5 +479,13 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
           PermissionListener listener) {
     permissionListener = listener;
     requestPermissions(permissions, requestCode);
+  }
+
+  public boolean isPrefersBottomBarHidden() {
+    return prefersBottomBarHidden;
+  }
+
+  public void setPrefersBottomBarHidden(boolean prefersBottomBarHidden) {
+    this.prefersBottomBarHidden = prefersBottomBarHidden;
   }
 }
