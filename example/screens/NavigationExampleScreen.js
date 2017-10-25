@@ -37,8 +37,18 @@ export default class NavigationExampleScreen extends Component {
           onPress={() => Navigator.present('ScreenOne')}
         />
         <Row
+          title="Push new screen (inherit tabs state)"
+          onPress={() => Navigator.push('ScreenOne', {})}
+        />
+        <Row
           title="Push new screen (with tabs)"
-          onPress={() => Navigator.push('ScreenOne')}
+          onPress={() => Navigator.push(
+            'ScreenOne',
+            {},
+            {
+              prefersBottomBarHidden: false,
+            },
+          )}
         />
         <Row
           title="Push new screen (without tabs)"

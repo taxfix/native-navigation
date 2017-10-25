@@ -80,7 +80,7 @@ class ReactNavigation: NSObject {
       let pushed = ReactViewController(moduleName: screenName, props: props)
       pushed.delegate = current.delegate
 
-      pushed.prefersBottomBarHidden = options["prefersBottomBarHidden"] as? Bool ?? false
+      pushed.prefersBottomBarHidden = options["prefersBottomBarHidden"] as? Bool ?? current.prefersBottomBarHidden
 
       let animated = (options["animated"] as? Bool) ?? true
       var makeTransition: (() -> ReactSharedElementTransition)? = nil
