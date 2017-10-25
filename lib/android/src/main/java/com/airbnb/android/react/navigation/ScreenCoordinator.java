@@ -112,7 +112,15 @@ public class ScreenCoordinator {
 
     if (fragment instanceof ReactNativeFragment) {
       ReactNativeFragment rnf = (ReactNativeFragment) fragment;
-      rnf.setPrefersBottomBarHidden(options.getBoolean(PREFERS_BOTTOM_BAR_HIDDEN, false));
+
+      boolean currentPrefersBottomBarHidden = false; // default
+
+      if (currentFragment instanceof ReactNativeFragment) {
+        ReactNativeFragment currentRnf = (ReactNativeFragment) currentFragment;
+          currentPrefersBottomBarHidden = currentRnf.isPrefersBottomBarHidden();
+      }
+
+      rnf.setPrefersBottomBarHidden(options != null ? options.getBoolean(PREFERS_BOTTOM_BAR_HIDDEN, currentPrefersBottomBarHidden) : currentPrefersBottomBarHidden);
     }
 
     BackStack bsi = getCurrentBackStack();
@@ -194,6 +202,18 @@ public class ScreenCoordinator {
       container.willDetachCurrentScreen();
       ft.detach(currentFragment);
     }
+
+    if (fragment instanceof ReactNativeFragment) {
+      ReactNativeFragment rnf = (ReactNativeFragment)fragment;
+
+      // Modal should not inherit any menu state, unless it's a tab activity
+      if (currentFragment == null) {
+        rnf.setPrefersBottomBarHidden(false);
+      } else {
+        rnf.setPrefersBottomBarHidden(true);
+      }
+    }
+
     ft
         .add(container.getId(), fragment)
         .addToBackStack(bsi.getTag())
