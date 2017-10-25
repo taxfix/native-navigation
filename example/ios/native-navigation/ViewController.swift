@@ -22,7 +22,7 @@ final class ViewController: UIViewController {
     view.addSubview(pushButton1)
 
     let pushButton2 = UIButton(type: .roundedRect)
-    pushButton2.setTitle("Push TabScreen", for: .normal)
+    pushButton2.setTitle("Present TabScreen", for: .normal)
     pushButton2.addTarget(self, action: #selector(pushTabScreen(sender:)), for: .touchUpInside)
     pushButton2.frame = CGRect(x: 0, y: 160, width: view.bounds.width, height: 60)
     view.addSubview(pushButton2)
