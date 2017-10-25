@@ -18,13 +18,13 @@ final class ViewController: UIViewController {
     let pushButton1 = UIButton(type: .roundedRect)
     pushButton1.setTitle("Push ScreenOne", for: .normal)
     pushButton1.addTarget(self, action: #selector(pushScreenOne(sender:)), for: .touchUpInside)
-    pushButton1.frame = CGRect(x: 0, y: 100, width: 320, height: 60)
+    pushButton1.frame = CGRect(x: 0, y: 100, width: view.bounds.width, height: 60)
     view.addSubview(pushButton1)
 
     let pushButton2 = UIButton(type: .roundedRect)
     pushButton2.setTitle("Push TabScreen", for: .normal)
     pushButton2.addTarget(self, action: #selector(pushTabScreen(sender:)), for: .touchUpInside)
-    pushButton2.frame = CGRect(x: 0, y: 160, width: 320, height: 60)
+    pushButton2.frame = CGRect(x: 0, y: 160, width: view.bounds.width, height: 60)
     view.addSubview(pushButton2)
 
 //    let button = UIButton(type: .roundedRect)
