@@ -168,6 +168,10 @@ public class ReactNativeTabActivity extends ReactAwareActivity
     }
   }
 
+  public void toggleBottomNavigationHidden(boolean hidden) {
+    bottomNavigationView.setVisibility(hidden ? View.GONE : View.VISIBLE);
+  }
+
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     reactInstanceManager.onActivityResult(this, requestCode, resultCode, data);

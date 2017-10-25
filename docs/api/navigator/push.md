@@ -5,8 +5,8 @@
 1. `screenName` (`string`): The screen identifier of the screen to be pushed.
 2. `props` (`Object`): Props to be passed into the pushed screen.
 3. `options` (`Object`): Options for the navigation transition:
-  - `options.transitionGroup` (`string`): The shared element group ID to use for the shared element
-  transition
+  - `options.prefersBottomBarHidden` (`boolean`): Toggles visibility of bottom bar(/tab bar) when pushing/popping screens
+  - `options.transitionGroup` (`string`): The shared element group ID to use for the shared element transition
 
 ## Returns
 

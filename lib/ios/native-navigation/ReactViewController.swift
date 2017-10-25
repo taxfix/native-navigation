@@ -74,7 +74,7 @@ open class ReactViewController: UIViewController {
   var transition: ReactSharedElementTransition?
   var eagerNavigationController: UINavigationController?
   open var reactFlowId: String?
-  open var showTabBar: Bool = false // TODO(lmr): showTabBar? is this needed?
+  open var prefersBottomBarHidden: Bool = false
   open weak var delegate: ReactViewControllerDelegate?
   var dismissResultCode: ReactFlowResultCode?
   var dismissPayload: [String: AnyObject]?
@@ -214,6 +214,18 @@ open class ReactViewController: UIViewController {
     }
   }
 
+  final override public var hidesBottomBarWhenPushed: Bool {
+    get {
+      guard navigationController?.viewControllers.last == self else {
+        return false
+      }
+
+      return prefersBottomBarHidden
+    }
+    set {
+      super.hidesBottomBarWhenPushed = newValue
+    }
+  }
 
 
 
