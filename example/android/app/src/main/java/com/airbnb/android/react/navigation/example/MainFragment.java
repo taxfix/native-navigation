@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.airbnb.android.react.navigation.ReactNativeIntents;
 import com.airbnb.android.react.navigation.ReactNativeTabActivity;
 import com.airbnb.android.react.navigation.ScreenCoordinator;
 import com.airbnb.android.react.navigation.ScreenCoordinatorComponent;
@@ -38,7 +39,8 @@ public class MainFragment extends Fragment {
     btnScreen.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        getScreenCoordinator().presentScreen(NativeFragment.newInstance(1));
+//        ReactNativeIntents.pushScreen(getActivity(), "ScreenOne");
+        getScreenCoordinator().pushScreen("ScreenOne");
       }
     });
 
@@ -49,7 +51,7 @@ public class MainFragment extends Fragment {
     btnTabs.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        startActivity(new Intent(getContext(), ReactNativeTabActivity.class));
+        ReactNativeIntents.presentScreen(getActivity(), "TabScreen");
       }
     });
 
