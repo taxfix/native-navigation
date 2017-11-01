@@ -59,7 +59,7 @@
     "gitbook-cli": "2.3.2",
     "murmur2js": "1.0.0",
     "react": "16.0.0",
-    "react-native": "0.49.3"
+    "react-native": "0.49.5"
   },
   "rnpm": {
     "android": {
