@@ -22,40 +22,42 @@ PODS:
   - GLog (0.3.4)
   - native-navigation (0.2.1):
     - React
-  - React (0.49.3):
-    - React/Core (= 0.49.3)
-  - React/Core (0.49.3):
-    - yoga (= 0.49.3.React)
-  - React/CxxBridge (0.49.3):
+  - React (0.50.1):
+    - React/Core (= 0.50.1)
+  - React/Core (0.50.1):
+    - yoga (= 0.50.1.React)
+  - React/CxxBridge (0.50.1):
     - Folly (= 2016.09.26.00)
     - React/Core
     - React/cxxreact
-  - React/cxxreact (0.49.3):
+  - React/cxxreact (0.50.1):
     - boost
     - Folly (= 2016.09.26.00)
     - React/jschelpers
-  - React/DevSupport (0.49.3):
+  - React/DevSupport (0.50.1):
     - React/Core
     - React/RCTWebSocket
-  - React/fishhook (0.49.3)
-  - React/jschelpers (0.49.3):
+  - React/fishhook (0.50.1)
+  - React/jschelpers (0.50.1):
     - Folly (= 2016.09.26.00)
-  - React/RCTAnimation (0.49.3):
+    - React/PrivateDatabase
+  - React/PrivateDatabase (0.50.1)
+  - React/RCTAnimation (0.50.1):
     - React/Core
-  - React/RCTBlob (0.49.3):
+  - React/RCTBlob (0.50.1):
     - React/Core
-  - React/RCTImage (0.49.3):
+  - React/RCTImage (0.50.1):
     - React/Core
     - React/RCTNetwork
-  - React/RCTNetwork (0.49.3):
+  - React/RCTNetwork (0.50.1):
     - React/Core
-  - React/RCTText (0.49.3):
+  - React/RCTText (0.50.1):
     - React/Core
-  - React/RCTWebSocket (0.49.3):
+  - React/RCTWebSocket (0.50.1):
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - yoga (0.49.3.React)
+  - yoga (0.50.1.React)
 
 DEPENDENCIES:
   - DoubleConversion (from `../../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -92,8 +94,8 @@ SPEC CHECKSUMS:
   Folly: b7255b29f1d693c375d642d0f04f0592181156d9
   GLog: 3e4e4ae9746ce6bf6e9420c7fc1e08ad59c8ba1a
   native-navigation: bfb4dd993e94160c9d71804332c39f7e56f0283b
-  React: 5751f5630c58f7ef31a00cf03044878295bceff0
-  yoga: 6e56575501ecea04196f9c9f08b90cf97cd5da24
+  React: 2b50e9e9151d1b7a5fba4ad593b1393ec3c9654b
+  yoga: f25f45222e44e880cc6e4e26513c24bdc8a5cfd7
 
 PODFILE CHECKSUM: 1cf56ccf45ad6ca7ca543338d99c0c563a2ce052
 
