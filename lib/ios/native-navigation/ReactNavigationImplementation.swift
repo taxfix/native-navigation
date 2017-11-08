@@ -488,7 +488,6 @@ open class DefaultReactNavigationImplementation: ReactNavigationImplementation {
 
     let navItem = viewController.navigationItem
 
-
     if let titleView = titleAndSubtitleViewFromProps(next) {
       if let title = stringForKey("title", next) {
         // set the title anyway, for accessibility
@@ -498,6 +497,13 @@ open class DefaultReactNavigationImplementation: ReactNavigationImplementation {
     } else if let title = stringForKey("title", next) {
       navItem.titleView = nil
       viewController.title = title
+    }
+
+    if #available(iOS 11.0, *) {
+      let prefersLargeTitles = boolForKey("prefersLargeTitles", next) ?? false
+
+      viewController.navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
+      viewController.navigationItem.largeTitleDisplayMode = .automatic
     }
 
     if let screenColor = colorForKey("screenColor", next) {
