@@ -32,6 +32,12 @@ class BackStack {
     return promise;
   }
 
+  public void clearToTop() {
+    Fragment overview = fragments.firstElement();
+    fragments.clear();
+    fragments.push(overview);
+  }
+
   @Nullable
   Fragment peekFragment() {
     if (fragments.isEmpty()) {

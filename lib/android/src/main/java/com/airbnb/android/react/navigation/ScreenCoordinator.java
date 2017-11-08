@@ -106,7 +106,14 @@ public class ScreenCoordinator {
     if (ViewUtils.isAtLeastLollipop() && options != null && options.containsKey(TRANSITION_GROUP)) {
       setupFragmentForSharedElement(currentFragment, fragment, ft, options);
     } else {
-      PresentAnimation anim = PresentAnimation.Push;
+      PresentAnimation anim;
+      if (((ReactNativeFragment) fragment).isMainFragment()) {
+        anim = PresentAnimation.Fade;
+      }
+      else {
+        anim = PresentAnimation.Push;
+      }
+
       ft.setCustomAnimations(anim.enter, anim.exit, anim.popEnter, anim.popExit);
     }
 
@@ -131,6 +138,23 @@ public class ScreenCoordinator {
             .commit();
     bsi.pushFragment(fragment);
     Log.d(TAG, toString());
+  }
+
+  public void pushTabScreen(Fragment screen) {
+    FragmentManager fm = activity.getSupportFragmentManager();
+    FragmentTransaction ft = fm.beginTransaction()
+        .setAllowOptimization(true);
+
+    if (screen.isDetached()) {
+      ft.attach(screen)
+          .remove(getCurrentFragment())
+          .commit();
+    }
+    else {
+      pushScreen(screen);
+    }
+
+    getCurrentBackStack().clearToTop(); // TODO remove this for "tab backstack"..
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -234,15 +258,16 @@ public class ScreenCoordinator {
     pop();
   }
 
-  public void pop() {
+  public ReactNativeFragment pop() {
     BackStack bsi = getCurrentBackStack();
     if (bsi.getSize() == 1) {
       dismiss();
-      return;
+      return null;
     }
     bsi.popFragment();
     activity.getSupportFragmentManager().popBackStack();
     Log.d(TAG, toString());
+    return (bsi.getSize() > 0) ? (ReactNativeFragment) bsi.peekFragment() : null;
   }
 
   public void dismiss() {

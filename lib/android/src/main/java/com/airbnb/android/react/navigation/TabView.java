@@ -58,6 +58,6 @@ public class TabView extends View {
   }
 
   private ReactNativeFragment instantiateFragment() {
-    return ReactNativeFragment.newInstance(route, props);
+    return ReactNativeFragment.newInstance(route, props, true);
   }
 }

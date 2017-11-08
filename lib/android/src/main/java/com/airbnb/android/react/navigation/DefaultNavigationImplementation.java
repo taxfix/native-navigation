@@ -68,7 +68,7 @@ public class DefaultNavigationImplementation implements NavigationImplementation
     defaults.elevation = 4.0f;
     defaults.alpha = 1.0f;
     defaults.overflowIconSource = null;
-    defaults.displayHomeAsUp = true;
+    defaults.displayHomeAsUp = false;
     defaults.homeButtonEnabled = true;
     defaults.showHome = true;
     defaults.showTitle = true;
