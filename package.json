@@ -23,7 +23,8 @@
     "docs:build": "npm run docs:prepare && gitbook build",
     "docs:watch": "npm run docs:prepare && gitbook serve",
     "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git fetch https://github.com/airbnb/native-navigation.git gh-pages && git checkout -b gh-pages && git add . && git commit -am 'update book' && git push https://github.com/airbnb/native-navigation.git gh-pages --force",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "sed -i.backup 's/#import <RCTAnimation\\/RCTValueAnimatedNode.h>/#import \"RCTValueAnimatedNode.h\"/' ./node_modules/react-native/Libraries/NativeAnimation/RCTNativeAnimatedNodesManager.h; sed -i.backup 's/#import <fishhook\\/fishhook.h>/#import \"fishhook.h\"/' ./node_modules/react-native/Libraries/WebSocket/RCTReconnectingWebSocket.m"
   },
   "repository": {
     "type": "git",
