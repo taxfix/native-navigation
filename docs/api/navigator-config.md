@@ -70,6 +70,11 @@ The text color of the subtitle.
 
 The opacity of the navigation bar. Should be between `0` and `1`.
 
+#### `prefersLargeTitles: boolean`
+
+If true, will use iOS 11 style large titles.
+
+Defaults to `false`.
 
 #### `rightTitle: string`
 
@@ -226,6 +231,7 @@ type NavigatorConfigProps = {
   isToolbarHidden: boolean;
   backIndicatorTransitionMaskImage: Image;
   translucent: boolean;
+  prefersLargeTitles: boolean;
   
   // android-only
   statusBarColor: Color;
