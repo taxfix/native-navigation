@@ -182,7 +182,6 @@ open class ReactViewController: UIViewController {
 
   override open func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    updateBarHeightIfNeeded()
     emitEvent("onAppear", body: nil)
   }
 
@@ -212,6 +211,12 @@ open class ReactViewController: UIViewController {
         transition = nil
       }
     }
+  }
+
+  override open func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+
+    updateBarHeightIfNeeded()
   }
 
   final override public var hidesBottomBarWhenPushed: Bool {
@@ -365,7 +370,6 @@ open class ReactViewController: UIViewController {
     prevConfig = renderedConfig
     renderedConfig = initialConfig.combineWith(values: props)
     reconcileScreenConfig()
-    updateBarHeightIfNeeded()
   }
 
   func updateBarHeightIfNeeded() {
@@ -376,7 +380,10 @@ open class ReactViewController: UIViewController {
     )
     if newHeight != barHeight {
       barHeight = newHeight
-      emitEvent("onBarHeightChanged", body: barHeight as AnyObject)
+      emitEvent("onBarHeightChanged", body: [
+        "height": barHeight,
+        "force": isCurrentlyTransitioning
+      ] as AnyObject)
     }
   }
 

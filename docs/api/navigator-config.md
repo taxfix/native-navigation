@@ -130,7 +130,7 @@ Defaults to `'fade'`.
 
 #### `onEnterTransitionCompleted: () => void`
 
-#### `onBarHeightChanged: (height: number) => void`
+#### `onBarHeightChanged: ({ height: number, force: boolean }) => void`
 
 #### `onLeftPress: () => void`
 
