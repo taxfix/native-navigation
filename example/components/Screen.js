@@ -32,6 +32,7 @@ export default class Screen extends React.Component {
         title={title}
         backgroundColor={theme.color.lightGray}
         elevation={4}
+        prefersLargeTitles
         onBackPress={() => console.log('onBackPress')}
         onLeftPress={() => console.log('onLeftPress')}
         onRightPress={x => console.log('onRightPress', x)}

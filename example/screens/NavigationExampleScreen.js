@@ -23,7 +23,9 @@ const { width } = Dimensions.get('window');
 export default class NavigationExampleScreen extends Component {
   render() {
     return (
-      <Screen>
+      <Screen
+        title={this.context.nativeNavigationInstanceId}
+      >
         <LoremImage
           width={width}
           height={width / 1.6}
