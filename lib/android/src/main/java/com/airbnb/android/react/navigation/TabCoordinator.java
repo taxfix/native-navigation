@@ -10,7 +10,8 @@ import android.util.Log;
 public class TabCoordinator {
   private static final String TAG = TabCoordinator.class.getSimpleName();
 
-  private final LongSparseArray<ScreenCoordinator> screenCoordinators = new LongSparseArray<>();
+//  private final LongSparseArray<ScreenCoordinator> screenCoordinators = new LongSparseArray<>();
+  private ScreenCoordinator screenCoordinator;
   private final AppCompatActivity activity;
   private final ScreenCoordinatorLayout container;
 
@@ -28,16 +29,23 @@ public class TabCoordinator {
         // TODO: add support for other behavior here such as reset the tab stack.
         return;
       }
-      ScreenCoordinator coordinator = screenCoordinators.get(currentTabId);
-      coordinator.dismissAll();
+
+//      ScreenCoordinator coordinator = screenCoordinators.get(currentTabId);
+//      screenCoordinator.dismissAll();
     }
     currentTabId = id;
-    ScreenCoordinator coordinator = screenCoordinators.get(id);
-    if (coordinator == null) {
-      coordinator = new ScreenCoordinator(activity, container, null);
-      screenCoordinators.put(id, coordinator);
+    ((ReactNativeFragment) startingFragment).setTabId(id);
+//    ScreenCoordinator coordinator = screenCoordinators.get(id);
+    if (screenCoordinator == null) {
+      screenCoordinator = new ScreenCoordinator(activity, container, null);
+//      screenCoordinator.put(id, coordinator);
+
+      screenCoordinator.presentScreen(startingFragment, ScreenCoordinator.PresentAnimation.Fade, null);
     }
-    coordinator.presentScreen(startingFragment, ScreenCoordinator.PresentAnimation.Fade, null);
+    else {
+      screenCoordinator.pushTabScreen(startingFragment);
+    }
+
     Log.d(TAG, toString());
   }
 
@@ -45,28 +53,28 @@ public class TabCoordinator {
   public ScreenCoordinator getCurrentScreenCoordinator() {
     if (currentTabId == null)
       return null;
-    return screenCoordinators.get(currentTabId);
+    return screenCoordinator;
   }
 
   public boolean onBackPressed() {
     if (currentTabId == null) {
       return false;
     }
-    screenCoordinators.get(currentTabId).pop();
+
+    ReactNativeFragment newFragment = screenCoordinator.pop();
+    if (newFragment != null) {
+      currentTabId = newFragment.getTabId();
+    }
+
     return true;
   }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("TabCoordinator={");
-    int size = screenCoordinators.size();
-    for (int i = 0; i < size; i++) {
-      long id = screenCoordinators.keyAt(i);
-      ScreenCoordinator coordinator = screenCoordinators.valueAt(i);
-      sb.append('\n').append(id).append(": ").append(coordinator);
-    }
-    sb.append("\n}");
-    return sb.toString();
+  @Override public String toString() {
+    return "TabCoordinator{" +
+        "screenCoordinator=" + screenCoordinator +
+        ", activity=" + activity +
+        ", container=" + container +
+        ", currentTabId=" + currentTabId +
+        '}';
   }
 }

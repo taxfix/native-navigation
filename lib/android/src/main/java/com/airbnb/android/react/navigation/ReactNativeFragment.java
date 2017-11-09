@@ -82,11 +82,18 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
   private ReactToolbar toolbar;
   private View loadingView;
 
+  private int tabId;
+
   static ReactNativeFragment newInstance(String moduleName, @Nullable Bundle props) {
+    return newInstance(moduleName, props, false);
+  }
+
+  static ReactNativeFragment newInstance(String moduleName, @Nullable Bundle props, boolean mainFragment) {
     ReactNativeFragment frag = new ReactNativeFragment();
     Bundle args = new BundleBuilder()
             .putString(ReactNativeIntents.EXTRA_MODULE_NAME, moduleName)
             .putBundle(ReactNativeIntents.EXTRA_PROPS, props)
+            .putBoolean("mainFragment", mainFragment)
             .toBundle();
     frag.setArguments(args);
     return frag;
@@ -119,6 +126,14 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
     Log.d(TAG, "onActivityCreated");
     initReactNative();
   }
+
+  public void setTabId(int id) {
+    tabId = id;
+  }
+
+  public int getTabId() { return tabId; }
+
+  public boolean isMainFragment() { return getArguments().getBoolean("mainFragment"); }
 
   private void initReactNative() {
     if (reactRootView != null || getView() == null) {
@@ -493,5 +508,10 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
 
   public void setPrefersBottomBarHidden(boolean prefersBottomBarHidden) {
     this.prefersBottomBarHidden = prefersBottomBarHidden;
+  }
+
+  @Override
+  public String toString() {
+    return getArguments().getString(ReactNativeIntents.EXTRA_MODULE_NAME) + " - " + super.toString();
   }
 }
