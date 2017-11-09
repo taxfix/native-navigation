@@ -249,6 +249,9 @@ public class ReactToolbar extends Toolbar {
       // use `length - i` for ordering so the button ordering is consistent with iOS
       MenuItem item = menu.add(Menu.NONE, Menu.NONE, length - i, title);
 
+      boolean enabled = button.hasKey("enabled") && button.getBoolean("enabled");
+      item.setEnabled(enabled);
+
       if (button.hasKey("image")) {
         setMenuItemIcon(item, button.getMap("image"));
       }
