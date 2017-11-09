@@ -25,8 +25,10 @@ import android.view.animation.Animation;
 import com.airbnb.android.R;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.devsupport.DoubleTapReloadRecognizer;
 import com.facebook.react.modules.core.PermissionListener;
 
@@ -485,7 +487,11 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
     );
     if (newHeight != barHeight) {
       barHeight = newHeight;
-      emitEvent("onBarHeightChanged", barHeight);
+      WritableMap map = Arguments.createMap();
+      map.putDouble("height", barHeight);
+      map.putBoolean("force", false);
+
+      emitEvent("onBarHeightChanged", map);
     }
   }
 

@@ -360,23 +360,11 @@ open class DefaultReactNavigationImplementation: ReactNavigationImplementation {
     navigationController: UINavigationController?,
     config: [String: AnyObject]
   ) -> CGFloat {
-    var statusBarHidden = false
-    var navBarHidden = false
-    var hasPrompt = false;
-    if let hidden = boolForKey("statusBarHidden", config) {
-      statusBarHidden = hidden
+    guard viewController.isViewLoaded else {
+      return 0
     }
-    if let hidden = boolForKey("hidden", config) {
-      navBarHidden = hidden
-    }
-    if stringForKey("prompt", config) != nil {
-      hasPrompt = true
-    }
-    if let navController = navigationController {
-      return navController.navigationBar.frame.height + (statusBarHidden ? 0 : 20)
-    }
-    // make a best guess based on config
-    return (statusBarHidden ? 0 : 20) + (navBarHidden ? 0 : 44) + (hasPrompt ? 30 : 0)
+
+    return viewController.topLayoutGuide.length
   }
 
   public func makeNavigationController(rootViewController: UIViewController) -> UINavigationController {
@@ -500,7 +488,6 @@ open class DefaultReactNavigationImplementation: ReactNavigationImplementation {
 
     let navItem = viewController.navigationItem
 
-
     if let titleView = titleAndSubtitleViewFromProps(next) {
       if let title = stringForKey("title", next) {
         // set the title anyway, for accessibility
@@ -510,6 +497,13 @@ open class DefaultReactNavigationImplementation: ReactNavigationImplementation {
     } else if let title = stringForKey("title", next) {
       navItem.titleView = nil
       viewController.title = title
+    }
+
+    if #available(iOS 11.0, *) {
+      let prefersLargeTitles = boolForKey("prefersLargeTitles", next) ?? false
+
+      viewController.navigationController?.navigationBar.prefersLargeTitles = prefersLargeTitles
+      viewController.navigationItem.largeTitleDisplayMode = .automatic
     }
 
     if let screenColor = colorForKey("screenColor", next) {
