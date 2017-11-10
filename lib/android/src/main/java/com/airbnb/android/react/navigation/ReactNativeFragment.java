@@ -242,7 +242,7 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
     });
 
     String moduleName = getArguments().getString(EXTRA_REACT_MODULE_NAME);
-    Log.d(TAG, "onCreateView " + moduleName);
+    Log.d(TAG, "onCreateView " + this);
 
     initialConfig = reactNavigationCoordinator.getInitialConfigForModuleName(moduleName);
     // for reconciliation, we save this in "renderedConfig" until the real one comes down
@@ -321,7 +321,7 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
   @Override
   public void onResume() {
     super.onResume();
-    Log.d(TAG, "onResume");
+    Log.d(TAG, "onResume " + this);
 
     if (getActivity() instanceof ReactNativeTabActivity) {
       ReactNativeTabActivity rnta = (ReactNativeTabActivity)getActivity();
@@ -333,7 +333,7 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
   }
 
   @Override public void onDestroyView() {
-    Log.d(TAG, "onDestroyView");
+    Log.d(TAG, "onDestroyView " + this);
     super.onDestroyView();
     reactNavigationCoordinator.unregisterComponent(instanceId);
   }
@@ -462,7 +462,7 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
     getImplementation().reconcileNavigationProperties(
             this,
             getToolbar(),
-            null,
+            activity.getSupportActionBar(),
             this.previousConfig,
             this.renderedConfig,
             false
