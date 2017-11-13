@@ -382,8 +382,13 @@ open class ReactViewController: UIViewController {
       barHeight = newHeight
       emitEvent("onBarHeightChanged", body: [
         "height": barHeight,
-        "force": isCurrentlyTransitioning
+        "force": isCurrentlyTransitioning || true // force it - we're not using animations currently?
       ] as AnyObject)
+
+      let newProps = propsWithMetadata(props, nativeNavigationInstanceId, barHeight)
+      if let rView = view as? RCTRootView {
+        rView.appProperties = newProps
+      }
     }
   }
 
