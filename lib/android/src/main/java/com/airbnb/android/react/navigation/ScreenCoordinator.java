@@ -222,10 +222,10 @@ public class ScreenCoordinator {
         .setCustomAnimations(anim.enter, anim.exit, anim.popEnter, anim.popExit);
 
     Fragment currentFragment = getCurrentFragment();
-    if (currentFragment != null && !isFragmentTranslucent(fragment)) {
-      container.willDetachCurrentScreen();
-      ft.detach(currentFragment);
-    }
+//    if (currentFragment != null && !isFragmentTranslucent(fragment)) {
+//      container.willDetachCurrentScreen();
+//      ft.detach(currentFragment);
+//    }
 
     if (fragment instanceof ReactNativeFragment) {
       ReactNativeFragment rnf = (ReactNativeFragment)fragment;
