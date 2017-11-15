@@ -176,10 +176,7 @@ final class ConversionUtil {
           result.putBundle(key, toBundle(readableMap.getMap(key)));
           break;
         case Array:
-          // NOTE(lmr): This is a limitation of the Bundle class. Wonder if there is a clean way 
-          // for us
-          // to get around it. For now i'm just skipping...
-          Log.e(TAG, "Cannot put arrays of objects into bundles. Failed on: " + key + ".");
+          result.putSerializable(key, toList(readableMap.getArray(key)));
           break;
         default:
           Log.e(TAG, "Could not convert object with key: " + key + ".");
@@ -321,6 +318,48 @@ final class ConversionUtil {
       }
     }
     return result;
+  }
+
+  static ArrayList toList(ReadableArray readableArray) {
+    if (readableArray == null) {
+      return null;
+    }
+
+    ArrayList list = new ArrayList();
+
+    for (int i = 0; i < readableArray.size(); i++) {
+      switch (readableArray.getType(i)) {
+        case Null:
+          list.add(null);
+          break;
+        case Boolean:
+          list.add(readableArray.getBoolean(i));
+          break;
+        case Number:
+          double number = readableArray.getDouble(i);
+          if (number == Math.rint(number)) {
+            // Add as an integer
+            list.add((int) number);
+          } else {
+            // Add as a double
+            list.add(number);
+          }
+          break;
+        case String:
+          list.add(readableArray.getString(i));
+          break;
+        case Map:
+          list.add(toBundle(readableArray.getMap(i)));
+          break;
+        case Array:
+          list.add(toList(readableArray.getArray(i)));
+          break;
+        default:
+          throw new IllegalArgumentException("Could not convert object in array.");
+      }
+    }
+
+    return list;
   }
 
   static List<Object> toArray(ReadableArray readableArray) {
