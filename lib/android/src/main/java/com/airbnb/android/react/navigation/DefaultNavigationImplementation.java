@@ -494,7 +494,7 @@ public class DefaultNavigationImplementation implements NavigationImplementation
 
     // we are just going to *always* invalidate this menu when we
     // reconcile, and handle everything in `prepareOptionsMenu`.
-    component.getActivity().supportInvalidateOptionsMenu();
+    component.invalidateMenu();
   }
 
   public void prepareOptionsMenu(
@@ -505,7 +505,7 @@ public class DefaultNavigationImplementation implements NavigationImplementation
       ReadableMap prev,
       ReadableMap next
   ) {
-    Log.d(TAG, "prepareOptionsMenu");
+    Log.d(TAG, "prepareOptionsMenu: " + component);
 
     if (arrayHasChanged("rightButtons", prev, next)) {
       if (next.hasKey("rightButtons")) {

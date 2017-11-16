@@ -19,5 +19,6 @@ public interface ReactInterface {
   void emitEvent(String eventName, Object object);
   void receiveNavigationProperties(ReadableMap properties);
   void dismiss();
+  void invalidateMenu();
   // @formatter:on
 }

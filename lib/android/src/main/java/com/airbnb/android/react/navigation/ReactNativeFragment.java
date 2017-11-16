@@ -430,6 +430,18 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
   }
 
   @Override
+  public void invalidateMenu() {
+    getImplementation().prepareOptionsMenu(
+        this,
+        getToolbar(),
+        null,
+        getToolbar().getMenu(),
+        this.previousConfig,
+        this.renderedConfig
+    );
+  }
+
+  @Override
   public void onPrepareOptionsMenu(Menu menu) {
     getImplementation().prepareOptionsMenu(
             this,
@@ -471,6 +483,7 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
 
   @Override
   public void receiveNavigationProperties(ReadableMap properties) {
+    Log.d(TAG, "receiveNavigationProperties: " + this + ", " + properties);
     this.previousConfig = this.renderedConfig;
     this.renderedConfig = ConversionUtil.combine(this.initialConfig, properties);
     reconcileNavigationProperties();
