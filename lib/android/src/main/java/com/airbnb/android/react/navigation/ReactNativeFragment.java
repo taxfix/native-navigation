@@ -521,6 +521,11 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
 
   public void setPrefersBottomBarHidden(boolean prefersBottomBarHidden) {
     this.prefersBottomBarHidden = prefersBottomBarHidden;
+
+    if (getActivity() instanceof ReactNativeTabActivity) {
+      ReactNativeTabActivity rnta = (ReactNativeTabActivity)getActivity();
+      rnta.toggleBottomNavigationHidden(prefersBottomBarHidden);
+    }
   }
 
   @Override
