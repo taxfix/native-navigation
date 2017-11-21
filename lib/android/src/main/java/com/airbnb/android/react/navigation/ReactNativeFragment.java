@@ -227,7 +227,6 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
     contentContainer = (ReactNativeFragmentViewGroup) v.findViewById(R.id.content_container);
     contentContainer.setKeyListener(this);
     activity = (AppCompatActivity) getActivity();
-    activity.setSupportActionBar(toolbar);
 
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
@@ -274,6 +273,9 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
     if (getActivity() != null) {
       getActivity().supportStartPostponedEnterTransition();
     }
+    activity.setSupportActionBar(toolbar);
+    toolbar.setVisibility(View.VISIBLE);
+    loadingView.setVisibility(View.INVISIBLE);
   }
 
   @Override

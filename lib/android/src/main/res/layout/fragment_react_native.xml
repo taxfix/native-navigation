@@ -15,13 +15,14 @@
     <com.airbnb.android.react.navigation.ReactToolbar
         android:theme="@style/AppTheme"
         android:id="@+id/toolbar"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"/>
 
     <View
         android:id="@+id/loading_view"
-        android:layout_height="18dp"
-        android:layout_width="42dp"
-        android:layout_gravity="center"/>
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"/>
 
 </com.airbnb.android.react.navigation.ReactNativeFragmentViewGroup>
