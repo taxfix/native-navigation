@@ -40,6 +40,7 @@ public class ScreenCoordinator {
 
   enum PresentAnimation {
     Modal(R.anim.slide_up, R.anim.delay, R.anim.delay, R.anim.slide_down),
+    ModalNoExit(R.anim.slide_up, R.anim.delay, 0, 0),
     Push(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right),
     Fade(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
 
@@ -97,7 +98,7 @@ public class ScreenCoordinator {
 
   public void pushScreen(Fragment fragment, @Nullable Bundle options) {
     FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction()
-            .setAllowOptimization(true);
+        .setAllowOptimization(true);
     Fragment currentFragment = getCurrentFragment();
     if (currentFragment == null) {
       throw new IllegalStateException("There is no current fragment. You must present one first.");
@@ -183,9 +184,15 @@ public class ScreenCoordinator {
       @Nullable Bundle props,
       @Nullable Bundle options,
       @Nullable Promise promise) {
-    // TODO: use options
+
+    PresentAnimation anim = PresentAnimation.Modal;
+    if (options != null && options.getBoolean("noExitAnimation")) {
+      anim = PresentAnimation.ModalNoExit;
+    }
+
+
     Fragment fragment = ReactNativeFragment.newInstance(moduleName, props);
-    presentScreen(fragment, PresentAnimation.Modal, promise);
+    presentScreen(fragment, anim, promise);
   }
 
   public void presentScreen(Fragment fragment) {
@@ -278,15 +285,15 @@ public class ScreenCoordinator {
     dismiss(resultCode, payload, true);
   }
 
-  private void dismiss(int resultCode, Map<String, Object> payload, boolean finishIfEmpty) {
+  private void dismiss(final int resultCode, final Map<String, Object> payload, boolean finishIfEmpty) {
     BackStack bsi = backStacks.pop();
-    Promise promise = bsi.getPromise();
-    deliverPromise(promise, resultCode, payload);
+    final Promise promise = bsi.getPromise();
     // This is needed so we can override the pop exit animation to slide down.
     PresentAnimation anim = bsi.getAnimation();
 
     if (backStacks.isEmpty()) {
       if (finishIfEmpty) {
+        deliverPromise(promise, resultCode, payload);
         activity.supportFinishAfterTransition();
         return;
       }
@@ -297,6 +304,9 @@ public class ScreenCoordinator {
 
     activity.getSupportFragmentManager()
             .popBackStackImmediate(bsi.getTag(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+    deliverPromise(promise, resultCode, payload);
+
     Log.d(TAG, toString());
   }
 
@@ -304,9 +314,9 @@ public class ScreenCoordinator {
     if (!enter && nextPopExitAnim != 0) {
       // If this fragment was pushed on to the stack, it's pop exit animation will be
       // slide out right. However, we want it to be slide down in this case.
-      int anim = nextPopExitAnim;
+      int animRes = nextPopExitAnim;
       nextPopExitAnim = 0;
-      return AnimationUtils.loadAnimation(activity, anim);
+      return AnimationUtils.loadAnimation(activity, animRes);
     }
     return null;
   }
