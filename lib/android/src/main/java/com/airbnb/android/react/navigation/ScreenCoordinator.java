@@ -97,6 +97,7 @@ public class ScreenCoordinator {
   }
 
   public void pushScreen(Fragment fragment, @Nullable Bundle options) {
+    Log.d("blah", "push: " + fragment);
     FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction()
         .setAllowOptimization(true);
     Fragment currentFragment = getCurrentFragment();
@@ -218,6 +219,7 @@ public class ScreenCoordinator {
   }
 
   public void presentScreen(Fragment fragment, PresentAnimation anim, @Nullable Promise promise) {
+    Log.d("blah", "present: " + fragment);
     if (fragment == null) {
       throw new IllegalArgumentException("Fragment must not be null.");
     }
@@ -267,12 +269,15 @@ public class ScreenCoordinator {
 
   public ReactNativeFragment pop() {
     BackStack bsi = getCurrentBackStack();
+    Log.d("blah", "popFrom: " + getCurrentFragment());
     if (bsi.getSize() == 1) {
       dismiss();
       return null;
     }
     bsi.popFragment();
-    activity.getSupportFragmentManager().popBackStack();
+    activity.getSupportFragmentManager().popBackStackImmediate();
+    activity.getSupportFragmentManager().executePendingTransactions();
+    Log.d("blah", "popTo: " + getCurrentFragment());
     Log.d(TAG, toString());
     return (bsi.getSize() > 0) ? (ReactNativeFragment) bsi.peekFragment() : null;
   }
