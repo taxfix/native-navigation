@@ -305,6 +305,12 @@ public class ScreenCoordinator {
     activity.getSupportFragmentManager()
             .popBackStackImmediate(bsi.getTag(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
+    Fragment current = getCurrentFragment();
+    if (current != null && current instanceof ReactNativeFragment) {
+      ReactNativeFragment rnf = ((ReactNativeFragment) current);
+      rnf.setPrefersBottomBarHidden(rnf.isPrefersBottomBarHidden());
+    }
+
     deliverPromise(promise, resultCode, payload);
 
     Log.d(TAG, toString());
