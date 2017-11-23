@@ -142,19 +142,18 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
     if (!isSuccessfullyInitialized()) {
       // TODO(lmr): need a different way of doing this
       // TODO(lmr): move to utils
-      reactInstanceManager.addReactInstanceEventListener(
-              new ReactInstanceManager.ReactInstanceEventListener() {
-                @Override
-                public void onReactContextInitialized(ReactContext context) {
-                  reactInstanceManager.removeReactInstanceEventListener(this);
-                  handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                      onAttachWithReactContext();
-                    }
-                  });
-                }
-              });
+      reactNavigationCoordinator.addReactInstanceEventListener( new ReactInstanceManager.ReactInstanceEventListener() {
+        @Override
+        public void onReactContextInitialized(ReactContext context) {
+          reactNavigationCoordinator.removeReactInstanceEventListener(this);
+          handler.post(new Runnable() {
+            @Override
+            public void run() {
+              onAttachWithReactContext();
+            }
+          });
+        }
+      });
     } else {
       onAttachWithReactContext();
       // in this case, we end up waiting for the first render to complete
