@@ -14,6 +14,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +69,12 @@ public class ReactNavigationCoordinator {
         public void onReactContextInitialized(ReactContext context) {
           reactInstanceManager.removeReactInstanceEventListener(this);
           isSuccessfullyInitialized = true;
+
+          List<ReactInstanceManager.ReactInstanceEventListener> listeners =
+              new ArrayList<>(ReactNavigationCoordinator.this.listeners);
+          for (ReactInstanceManager.ReactInstanceEventListener l: listeners) {
+            l.onReactContextInitialized(context);
+          }
         }
       });
   }
@@ -89,6 +96,15 @@ public class ReactNavigationCoordinator {
   public void injectExposedActivities(List<ReactExposedActivityParams> exposedActivities) {
     // TODO(lmr): would it make sense to warn or throw here if it's already set?
     this.exposedActivities = exposedActivities;
+  }
+
+  private List<ReactInstanceManager.ReactInstanceEventListener> listeners = new ArrayList<>();
+  public void addReactInstanceEventListener(ReactInstanceManager.ReactInstanceEventListener l) {
+    this.listeners.add(l);
+  }
+
+  public void removeReactInstanceEventListener(ReactInstanceManager.ReactInstanceEventListener l) {
+    this.listeners.remove(l);
   }
 
   /**
