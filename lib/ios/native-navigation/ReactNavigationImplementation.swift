@@ -575,7 +575,13 @@ open class DefaultReactNavigationImplementation: ReactNavigationImplementation {
       let navBar = navController.navigationBar
 
       if let titleAttributes = textAttributesFromPrefix("title", next) {
-        navBar.titleTextAttributes = titleAttributes
+        var combined = titleAttributes
+
+        if let appearance = UINavigationBar.appearance().titleTextAttributes {
+          combined = appearance.combineWith(values: titleAttributes)
+        }
+
+        navBar.titleTextAttributes = combined
       }
 
       if let backIndicatorImage = imageForKey("backIndicatorImage", next) {
