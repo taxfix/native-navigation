@@ -45,7 +45,7 @@
     "react-native-safe-module": "1.2.0"
   },
   "devDependencies": {
-    "babel-eslint": "8.0.3",
+    "babel-eslint": "8.1.2",
     "babel-plugin-module-resolver": "3.0.0",
     "babel-preset-airbnb": "2.4.0",
     "babel-preset-react-native": "4.0.0",
