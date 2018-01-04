@@ -1,5 +1,6 @@
 package com.airbnb.android.react.navigation;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.ViewTreeObserver;
@@ -26,6 +27,12 @@ public abstract class ReactAwareActivity extends AppCompatActivity
   protected void onResume() {
     super.onResume();
     reactInstanceManager.onHostResume(this, this);
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    reactInstanceManager.onActivityResult(this, requestCode, resultCode, data);
+    super.onActivityResult(requestCode, resultCode, data);
   }
 
   @Override
