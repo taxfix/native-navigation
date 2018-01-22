@@ -260,14 +260,14 @@ public class DefaultNavigationImplementation implements NavigationImplementation
       foregroundColor = next.getInt("foregroundColor");
     }
 
-    if (stringHasChanged("title", prev, next)) {
+//    if (stringHasChanged("title", prev, next)) {
       if (next.hasKey("title")) {
         String title = next.getString("title");
         toolbar.setTitle(title);
       } else {
         toolbar.setTitle(null);
       }
-    }
+//    }
 
     if (firstCall || numberHasChanged("titleColor", prev, next)) {
       if (next.hasKey("titleColor")) {
