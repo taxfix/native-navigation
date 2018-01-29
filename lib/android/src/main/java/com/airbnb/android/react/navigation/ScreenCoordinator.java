@@ -83,20 +83,12 @@ public class ScreenCoordinator {
     // TODO
   }
 
-  public void pushScreen(String moduleName) {
-    pushScreen(moduleName, null, null);
-  }
-
-  public void pushScreen(String moduleName, @Nullable Bundle props, @Nullable Bundle options) {
+  public void pushScreen(String moduleName, @Nullable Bundle props, @Nullable Bundle options, Promise promise) {
     Fragment fragment = ReactNativeFragment.newInstance(moduleName, props);
-    pushScreen(fragment, options);
+    pushScreen(fragment, options, promise);
   }
 
-  public void pushScreen(Fragment fragment) {
-    pushScreen(fragment, null);
-  }
-
-  public void pushScreen(Fragment fragment, @Nullable Bundle options) {
+  public void pushScreen(Fragment fragment, @Nullable Bundle options, Promise promise) {
     Log.d("blah", "push: " + fragment);
     FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction()
         .setAllowOptimization(true);
@@ -138,25 +130,8 @@ public class ScreenCoordinator {
             .add(container.getId(), fragment)
             .addToBackStack(null)
             .commit();
-    bsi.pushFragment(fragment);
+    bsi.pushFragment(fragment, promise);
     Log.d(TAG, toString());
-  }
-
-  public void pushTabScreen(Fragment screen) {
-    FragmentManager fm = activity.getSupportFragmentManager();
-    FragmentTransaction ft = fm.beginTransaction()
-        .setAllowOptimization(true);
-
-    if (screen.isDetached()) {
-      ft.attach(screen)
-          .remove(getCurrentFragment())
-          .commit();
-    }
-    else {
-      pushScreen(screen);
-    }
-
-    getCurrentBackStack().clearToTop(); // TODO remove this for "tab backstack"..
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -252,7 +227,7 @@ public class ScreenCoordinator {
         .addToBackStack(bsi.getTag())
         .commit();
     activity.getSupportFragmentManager().executePendingTransactions();
-    bsi.pushFragment(fragment);
+    bsi.pushFragment(fragment, null);
     Log.d(TAG, toString());
   }
 
@@ -264,21 +239,24 @@ public class ScreenCoordinator {
   }
 
   public void onBackPressed() {
-    pop();
+    pop(null);
   }
 
-  public ReactNativeFragment pop() {
+  public ReactNativeFragment pop(final Map<String, Object> payload) {
     BackStack bsi = getCurrentBackStack();
     Log.d("blah", "popFrom: " + getCurrentFragment());
     if (bsi.getSize() == 1) {
       dismiss();
       return null;
     }
-    bsi.popFragment();
+    Promise pushPromise = bsi.popFragment();
     activity.getSupportFragmentManager().popBackStackImmediate();
     activity.getSupportFragmentManager().executePendingTransactions();
     Log.d("blah", "popTo: " + getCurrentFragment());
     Log.d(TAG, toString());
+
+    deliverPromise(pushPromise, -1, payload);
+
     return (bsi.getSize() > 0) ? (ReactNativeFragment) bsi.peekFragment() : null;
   }
 
@@ -292,7 +270,7 @@ public class ScreenCoordinator {
 
   private void dismiss(final int resultCode, final Map<String, Object> payload, boolean finishIfEmpty) {
     BackStack bsi = backStacks.pop();
-    final Promise promise = bsi.getPromise();
+    final Promise promise = bsi.getPresentPromise();
     // This is needed so we can override the pop exit animation to slide down.
     PresentAnimation anim = bsi.getAnimation();
 
@@ -334,9 +312,14 @@ public class ScreenCoordinator {
 
   private void deliverPromise(Promise promise, int resultCode, Map<String, Object> payload) {
     if (promise != null) {
-      Map<String, Object> newPayload =
-              MapBuilder.of(EXTRA_CODE, resultCode, EXTRA_PAYLOAD, payload);
-      promise.resolve(ConversionUtil.toWritableMap(newPayload));
+      if (payload != null) {
+        Map<String, Object> newPayload =
+            MapBuilder.of(EXTRA_CODE, resultCode, EXTRA_PAYLOAD, payload);
+        promise.resolve(ConversionUtil.toWritableMap(newPayload));
+      }
+      else {
+        promise.resolve(null);
+      }
     }
   }
 
