@@ -42,9 +42,6 @@ public class TabCoordinator {
 
       screenCoordinator.presentScreen(startingFragment, ScreenCoordinator.PresentAnimation.Fade, null);
     }
-    else {
-      screenCoordinator.pushTabScreen(startingFragment);
-    }
 
     Log.d(TAG, toString());
   }
@@ -61,7 +58,7 @@ public class TabCoordinator {
       return false;
     }
 
-    ReactNativeFragment newFragment = screenCoordinator.pop();
+    ReactNativeFragment newFragment = screenCoordinator.pop(null);
     if (newFragment != null) {
       currentTabId = newFragment.getTabId();
     }

@@ -89,7 +89,7 @@ class NavigatorModule extends ReactContextBaseJavaModule {
   @SuppressWarnings("UnusedParameters")
   @ReactMethod
   public void push(final String screenName, final ReadableMap props,
-      final ReadableMap options) {
+      final ReadableMap options, final Promise promise) {
     handler.post(new Runnable() {
       @Override
       public void run() {
@@ -101,7 +101,8 @@ class NavigatorModule extends ReactContextBaseJavaModule {
         ((ScreenCoordinatorComponent) activity).getScreenCoordinator().pushScreen(
             screenName,
             ConversionUtil.toBundle(props),
-            ConversionUtil.toBundle(options));
+            ConversionUtil.toBundle(options),
+            promise);
       }
     });
   }
@@ -166,7 +167,7 @@ class NavigatorModule extends ReactContextBaseJavaModule {
 
   @SuppressWarnings("UnusedParameters")
   @ReactMethod
-  public void pop(ReadableMap payload, boolean animated) {
+  public void pop(final ReadableMap payload, boolean animated) {
     handler.post(new Runnable() {
       @Override
       public void run() {
@@ -176,7 +177,7 @@ class NavigatorModule extends ReactContextBaseJavaModule {
           return;
         }
         ensureCoordinatorComponent(activity);
-        ((ScreenCoordinatorComponent) activity).getScreenCoordinator().pop();
+        ((ScreenCoordinatorComponent) activity).getScreenCoordinator().pop(payloadToMap(payload));
       }
     });
   }
