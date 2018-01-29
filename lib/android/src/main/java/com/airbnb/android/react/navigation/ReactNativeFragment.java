@@ -335,7 +335,11 @@ public class ReactNativeFragment extends Fragment implements ReactInterface,
     Log.d(TAG, "onDestroyView " + this);
     super.onDestroyView();
     reactNavigationCoordinator.unregisterComponent(instanceId);
-    getReactRootView().unmountReactApplication();
+    
+    ReactRootView rootView = getReactRootView();
+    if (rootView != null) {
+      rootView.unmountReactApplication();
+    }
   }
 
   @Override
