@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Fade;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -89,7 +88,6 @@ public class ScreenCoordinator {
   }
 
   public void pushScreen(Fragment fragment, @Nullable Bundle options, Promise promise) {
-    Log.d("blah", "push: " + fragment);
     FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction()
         .setAllowOptimization(true);
     Fragment currentFragment = getCurrentFragment();
@@ -131,7 +129,7 @@ public class ScreenCoordinator {
             .addToBackStack(null)
             .commit();
     bsi.pushFragment(fragment, promise);
-    Log.d(TAG, toString());
+    activity.getSupportFragmentManager().executePendingTransactions();
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -194,7 +192,6 @@ public class ScreenCoordinator {
   }
 
   public void presentScreen(Fragment fragment, PresentAnimation anim, @Nullable Promise promise) {
-    Log.d("blah", "present: " + fragment);
     if (fragment == null) {
       throw new IllegalArgumentException("Fragment must not be null.");
     }
@@ -228,7 +225,6 @@ public class ScreenCoordinator {
         .commit();
     activity.getSupportFragmentManager().executePendingTransactions();
     bsi.pushFragment(fragment, null);
-    Log.d(TAG, toString());
   }
 
   public void dismissAll() {
@@ -244,7 +240,6 @@ public class ScreenCoordinator {
 
   public ReactNativeFragment pop(final Map<String, Object> payload) {
     BackStack bsi = getCurrentBackStack();
-    Log.d("blah", "popFrom: " + getCurrentFragment());
     if (bsi.getSize() == 1) {
       dismiss();
       return null;
@@ -252,8 +247,6 @@ public class ScreenCoordinator {
     Promise pushPromise = bsi.popFragment();
     activity.getSupportFragmentManager().popBackStackImmediate();
     activity.getSupportFragmentManager().executePendingTransactions();
-    Log.d("blah", "popTo: " + getCurrentFragment());
-    Log.d(TAG, toString());
 
     deliverPromise(pushPromise, -1, payload);
 
@@ -295,8 +288,6 @@ public class ScreenCoordinator {
     }
 
     deliverPromise(promise, resultCode, payload);
-
-    Log.d(TAG, toString());
   }
 
   public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
