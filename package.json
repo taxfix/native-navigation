@@ -41,7 +41,7 @@
     "react-native": ">=0.42"
   },
   "dependencies": {
-    "prop-types": "15.6.0",
+    "prop-types": "15.6.2",
     "react-native-safe-module": "1.2.0"
   },
   "devDependencies": {
